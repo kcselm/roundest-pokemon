@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState } from 'react'
 import Head from 'next/head'
 import { getOptionsForVote } from '../utils/getRandomPokemon'
@@ -26,21 +27,24 @@ export default function Home() {
       <div className='text-center text-2xl '>Which Pokemon is rounder?</div>
       <div className='p-4'></div>
       <div className='border rounded-3xl p-8 flex justify-between items-center'>
-        <div className='w-16 h-16 m-4 bg-blue-800'>
+        <div className='w-64 h-64 bg-blue-800 rounded-full'>
           <img
             src={
               firstPokemon.data?.pokemon.sprites.other?.['official-artwork']
                 .front_default
+              // firstPokemon.data.pokemon.sprites.front_default
             }
+            alt='pokemon1'
           />
         </div>
-        <div className='p-8'>VS</div>
-        <div className='w-16 h-16 m-4 bg-blue-800'>
+        <div className='p-8 text-3xl'>VS</div>
+        <div className='w-64 h-64 bg-blue-800 rounded-full'>
           <img
             src={
               secondPokemon.data?.pokemon.sprites.other?.['official-artwork']
                 .front_default
             }
+            alt='pokemon2'
           />
         </div>
       </div>
