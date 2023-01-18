@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import Head from 'next/head'
 import { getOptionsForVote } from '../utils/getRandomPokemon'
-import { uppercaseFirstLetter } from '../utils/uppercaseFirstLetter'
 import { trpc } from '../utils/trpc'
 
 export default function Home() {
@@ -10,18 +9,6 @@ export default function Home() {
   const [first, second] = ids
   const firstPokemon = trpc.get_pokemon_by_id.useQuery({ pokemonId: first })
   const secondPokemon = trpc.get_pokemon_by_id.useQuery({ pokemonId: second })
-
-  console.log('name type', typeof firstPokemon?.data?.pokemon?.name)
-
-  const firstPokemonName = uppercaseFirstLetter(
-    firstPokemon?.data?.pokemon?.name!
-  )
-  const secondPokemonName = uppercaseFirstLetter(
-    secondPokemon?.data?.pokemon?.name!
-  )
-
-  console.log('firstPokemon.data', firstPokemon.data)
-  console.log('secondPokemon.data', secondPokemon.data)
 
   if (!firstPokemon.data || !secondPokemon.data) {
     return <div>Loading...</div>
@@ -38,7 +25,9 @@ export default function Home() {
       <div className='p-4'></div>
       <div className='border rounded-3xl p-8 flex justify-between items-center'>
         <div className='flex-wrap'>
-          <div className='text-center text-3xl mb-4'>{firstPokemonName}</div>
+          <div className='text-center text-3xl mb-4 capitalize'>
+            {firstPokemon?.data?.pokemon?.name!}
+          </div>
           <div className='w-64 h-64 bg-blue-800 rounded-full'>
             <img
               src={
@@ -51,7 +40,9 @@ export default function Home() {
         </div>
         <div className='p-8 text-3xl'>VS</div>
         <div className='flex-wrap'>
-          <div className='text-center text-3xl mb-4'>{secondPokemonName}</div>
+          <div className='text-center text-3xl mb-4 capitalize'>
+            {secondPokemon?.data?.pokemon?.name!}
+          </div>
           <div className='w-64 h-64 bg-blue-800 rounded-full'>
             <img
               src={
